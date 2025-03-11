@@ -1,2 +1,2 @@
 # SolidShellCouplingIGA
-Provide examples for checking collaboratively progress on master's thesis
+Provide examples for checking collaboratively the progress on my master's thesis
