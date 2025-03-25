@@ -5,101 +5,15 @@ import KratosMultiphysics as KM
 import KratosMultiphysics.IgaApplication as IgaApplication
 import QuESo_PythonApplication as QuESo_App
 from kratos_interface.model_part_utilities import ModelPartUtilities
+from kratos_interface.custom_analysis_stage import CustomAnalysisStage
+# C:\Users\minas\Documents\Thesis\Examples\02_newPartModels\main_kratos_coupling_iga.py
+from AdditionalModules.GetAndSaveIntpointsFromQuesoConditions import GetIntergrationPointsFromQuesoConditions, SavePointsToVTK
+import os
 
-
-class CouplingSolidShellAnalysisStage(StructuralMechanicsAnalysis):
+class CouplingSolidShellAnalysisStage(CustomAnalysisStage):
     def __init__(self, model, queso_settings, kratos_settings_filename, elements, boundary_conditions):
-        # As in Queso
-        """The constructor."""
-        # Read kratos settings
-        with open(kratos_settings_filename,'r') as parameter_file:
-            analysis_parameters = KM.Parameters(parameter_file.read())
-        self.boundary_conditions = boundary_conditions
-        self.elements = elements
-        self.queso_settings = queso_settings
-
-        self.lagrange_dofs_required = False
-        for condition_param in self.queso_settings.GetList("conditions_settings_list"):
-            if( condition_param.GetString("condition_type") == "LagrangeSupportCondition" ):
-                self.lagrange_dofs_required = True
-
-        nurbs_model_part = model.CreateModelPart("NurbsMesh")
-        nurbs_model_part.AddNodalSolutionStepVariable(KM.DISPLACEMENT)
-        nurbs_model_part.AddNodalSolutionStepVariable(KM.REACTION)
-
-        if self.lagrange_dofs_required:
-            nurbs_model_part.AddNodalSolutionStepVariable(KM.VECTOR_LAGRANGE_MULTIPLIER)
-            nurbs_model_part.AddNodalSolutionStepVariable(IgaApplication.VECTOR_LAGRANGE_MULTIPLIER_REACTION)
-            
-        queso_grid_settings = self.queso_settings["background_grid_settings"]
-        #Override the NurbsGeometryModeler input parameters
-        for modeler in analysis_parameters["modelers"].values():
-            if modeler["modeler_name"].GetString() == "NurbsGeometryModeler":
-                parameters = modeler["Parameters"]
-                parameters.AddEmptyValue("lower_point_xyz")
-                parameters["lower_point_xyz"].SetVector(queso_grid_settings.GetDoubleVector("lower_bound_xyz"))
-                parameters.AddEmptyValue("upper_point_xyz")
-                parameters["upper_point_xyz"].SetVector(queso_grid_settings.GetDoubleVector("upper_bound_xyz"))
-
-                parameters.AddEmptyValue("lower_point_uvw")
-                parameters["lower_point_uvw"].SetVector(queso_grid_settings.GetDoubleVector("lower_bound_uvw"))
-                parameters.AddEmptyValue("upper_point_uvw")
-                parameters["upper_point_uvw"].SetVector(queso_grid_settings.GetDoubleVector("upper_bound_uvw"))
-
-                parameters.AddEmptyValue("polynomial_order")
-                parameters["polynomial_order"].SetVector(queso_grid_settings.GetIntVector("polynomial_order"))
-                parameters.AddEmptyValue("number_of_knot_spans")
-                parameters["number_of_knot_spans"].SetVector(queso_grid_settings.GetIntVector("number_of_elements"))
-
-        self.Initialized = False
-        super().__init__(model, analysis_parameters)
-
-    def _ModelersSetupModelPart(self):
-        # As in Queso
-        """Override BaseClass to run NURBS modelers."""
-        queso_embedded_model_part = self.model.CreateModelPart('EmbeddedModelPart')
-        queso_embedded_model_part.AddNodalSolutionStepVariable(KM.DISPLACEMENT)
-        queso_embedded_model_part.AddNodalSolutionStepVariable(KM.REACTION)
-        queso_embedded_model_part.ProcessInfo.SetValue(KM.DOMAIN_SIZE, 3)
-        filename = self.queso_settings["general_settings"].GetString("input_filename")
-        self.triangle_mesh = QuESo_App.TriangleMesh()
-        QuESo_App.IO.ReadMeshFromSTL(self.triangle_mesh, filename)
-        ModelPartUtilities.ReadModelPartFromTriangleMesh(queso_embedded_model_part, self.triangle_mesh)
-        # Convert the geometry model or import analysis suitable models.
-        for modeler in self._GetListOfModelers():
-            if self.echo_level > 1:
-                KM.Logger.PrintInfo(self._GetSimulationName(), "Modeler: ", str(modeler), " Setup ModelPart started.")
-            modeler.SetupModelPart()
-            if self.echo_level > 1:
-                KM.Logger.PrintInfo(self._GetSimulationName(), "Modeler: ", str(modeler), " Setup ModelPart finished.")
-    
-        return super()._ModelersSetupModelPart()
-    
-    def ModifyInitialGeometry(self):
-        """Override BaseClass to pass integration points to Kratos."""
-        model_part = self.model.GetModelPart('NurbsMesh')
-        ModelPartUtilities.RemoveAllElements(model_part)
-        ModelPartUtilities.RemoveAllConditions(model_part)
-        ModelPartUtilities.AddElementsToModelPart(model_part, self.elements)
-        grid_settings = self.queso_settings["background_grid_settings"]
-        bounds_xyz = [grid_settings.GetDoubleVector("lower_bound_xyz"),
-                      grid_settings.GetDoubleVector("upper_bound_xyz")]
-        bounds_uvw = [grid_settings.GetDoubleVector("lower_bound_uvw"),
-                      grid_settings.GetDoubleVector("upper_bound_uvw")]
-        ModelPartUtilities.AddConditionsToModelPart(model_part, self.boundary_conditions, bounds_xyz, bounds_uvw)
-        # Add Dofs
-        KM.VariableUtils().AddDof(KM.DISPLACEMENT_X, KM.REACTION_X, model_part)
-        KM.VariableUtils().AddDof(KM.DISPLACEMENT_Y, KM.REACTION_Y, model_part)
-        KM.VariableUtils().AddDof(KM.DISPLACEMENT_Z, KM.REACTION_Z, model_part)
-
-        if self.lagrange_dofs_required:
-            KM.VariableUtils().AddDof(KM.VECTOR_LAGRANGE_MULTIPLIER_X, IgaApplication.VECTOR_LAGRANGE_MULTIPLIER_REACTION_X, model_part)
-            KM.VariableUtils().AddDof(KM.VECTOR_LAGRANGE_MULTIPLIER_Y, IgaApplication.VECTOR_LAGRANGE_MULTIPLIER_REACTION_Y, model_part)
-            KM.VariableUtils().AddDof(KM.VECTOR_LAGRANGE_MULTIPLIER_Z, IgaApplication.VECTOR_LAGRANGE_MULTIPLIER_REACTION_Z, model_part)
-        
-
-
-
+        super().__init__(model, queso_settings, kratos_settings_filename, elements, boundary_conditions)
+       
 
 def main():
     #First run queso
@@ -111,12 +25,31 @@ def main():
     queso_settings = pyqueso.GetSettings()
     queso_elements = pyqueso.GetElements()
     queso_boundary_conditions = pyqueso.GetConditions()
+    # Write integration points for boundary 1
+    Conditon_1 = queso_boundary_conditions[0]
+    IntegrationPoints_Condition1 = GetIntergrationPointsFromQuesoConditions(Conditon_1)
+    base_directory = 'data'
+    filename = 'Queso_IntPoints_Cond1.vtk'
+    file_path = os.path.join(base_directory, filename)
+    SavePointsToVTK(IntegrationPoints_Condition1,file_path)
+    print("Number of Integration points for Condition1 : ",len(IntegrationPoints_Condition1))
+
+    # Write integration points for boundary 2
+    Conditon_2 = queso_boundary_conditions[1]
+    IntegrationPoints_Condition2 = GetIntergrationPointsFromQuesoConditions(Conditon_2)
+    base_directory = 'data'
+    filename = 'Queso_IntPoints_Cond2.vtk'
+    file_path = os.path.join(base_directory, filename)
+    SavePointsToVTK(IntegrationPoints_Condition2,file_path)
+    print("Number of Integration points for Condition2 : ",len(IntegrationPoints_Condition2))
+
+
+
     kratos_settings="KratosParameters.json"
     simulation = CouplingSolidShellAnalysisStage(model,queso_settings, kratos_settings, queso_elements, queso_boundary_conditions)
     simulation.Initialize()
-    print(simulation.model.GetModelPart("IgaModelPart"))
-    print(simulation.model.GetModelPart("CoupledSolidShellModelPart"))
-
+    CoupledSolidShellModelPart = simulation.model.GetModelPart("CoupledSolidShellModelPart")
+    print(CoupledSolidShellModelPart)
    
 if __name__ == "__main__":
     main()
