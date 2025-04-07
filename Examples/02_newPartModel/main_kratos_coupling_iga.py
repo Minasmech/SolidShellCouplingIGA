@@ -12,7 +12,28 @@ import os
 
 class CouplingSolidShellAnalysisStage(CustomAnalysisStage):
     def __init__(self, model, queso_settings, kratos_settings_filename, elements, boundary_conditions):
+        IgaModelPart = model.CreateModelPart("IgaModelPart")
+        IgaModelPart.AddNodalSolutionStepVariable(KM.DISPLACEMENT)
+        IgaModelPart.AddNodalSolutionStepVariable(KM.REACTION)
+
+        CoupledSolidShellModelPart = model.CreateModelPart("CoupledSolidShellModelPart")
+        CoupledSolidShellModelPart.CreateSubModelPart("CouplingInterface")
+        
         super().__init__(model, queso_settings, kratos_settings_filename, elements, boundary_conditions)
+        
+    def ModifyInitialGeometry(self):
+        IgaModelPart = self.model.GetModelPart("IgaModelPart")
+        # Add Dofs
+        KM.VariableUtils().AddDof(KM.DISPLACEMENT_X, KM.REACTION_X, IgaModelPart)
+        KM.VariableUtils().AddDof(KM.DISPLACEMENT_Y, KM.REACTION_Y, IgaModelPart)
+        KM.VariableUtils().AddDof(KM.DISPLACEMENT_Z, KM.REACTION_Z, IgaModelPart)
+
+        if self.lagrange_dofs_required:
+            KM.VariableUtils().AddDof(KM.VECTOR_LAGRANGE_MULTIPLIER_X, IgaApplication.VECTOR_LAGRANGE_MULTIPLIER_REACTION_X, IgaModelPart)
+            KM.VariableUtils().AddDof(KM.VECTOR_LAGRANGE_MULTIPLIER_Y, IgaApplication.VECTOR_LAGRANGE_MULTIPLIER_REACTION_Y, IgaModelPart)
+            KM.VariableUtils().AddDof(KM.VECTOR_LAGRANGE_MULTIPLIER_Z, IgaApplication.VECTOR_LAGRANGE_MULTIPLIER_REACTION_Z, IgaModelPart)
+        
+        return super().ModifyInitialGeometry()
        
 
 def main():
@@ -48,6 +69,7 @@ def main():
     kratos_settings="KratosParameters.json"
     simulation = CouplingSolidShellAnalysisStage(model,queso_settings, kratos_settings, queso_elements, queso_boundary_conditions)
     simulation.Initialize()
+    simulation.RunSolutionLoop()
     CoupledSolidShellModelPart = simulation.model.GetModelPart("CoupledSolidShellModelPart")
     print(CoupledSolidShellModelPart)
    
