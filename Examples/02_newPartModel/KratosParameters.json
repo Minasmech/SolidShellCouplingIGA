@@ -66,8 +66,20 @@
     }
 
   ],
-  "processes": { 
-    "additional_processes":[ 
+  "processes": {
+    "neumann_process_list": [
+      {
+        "kratos_module": "KratosMultiphysics",
+        "python_module": "assign_vector_variable_to_conditions_process",
+        "Parameters": {
+          "model_part_name": "IgaModelPart.Load_3",
+          "variable_name": "DEAD_LOAD",
+          "value": [ 0.000150, 0, 0.0002000 ],
+          "interval": [ 0, "End" ]
+        }
+      }
+    ],
+    "additional_processes": [
       {
         "kratos_module": "IgaApplication",
         "python_module": "combine_solid_shell_model_parts_process",
@@ -75,7 +87,7 @@
 
         }
       }
-   ]
+    ]
   },
   "output_processes": {
       "vtk_output": [

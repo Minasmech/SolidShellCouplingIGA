@@ -11,19 +11,7 @@
       }
     },
     {
-      "brep_id": 2,
-      "geometry_type": "GeometrySurfaceNodes",
-      "iga_model_part": "Support_2",
-      "parameters": { "local_parameters": [ -1, 0 ] }
-    },
-    {
-      "brep_id": 2,
-      "geometry_type": "GeometrySurfaceVariationNodes",
-      "iga_model_part": "Support_2_Rotational",
-      "parameters": { "local_parameters": [ -1, 0 ] }
-    },
-    {
-      "brep_ids": [ 5 ],
+      "brep_ids": [ 4 ],
       "geometry_type": "SurfaceEdge",
       "iga_model_part": "Load_3",
       "parameters": {

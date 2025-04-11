@@ -68,9 +68,21 @@ def main():
 
     kratos_settings="KratosParameters.json"
     simulation = CouplingSolidShellAnalysisStage(model,queso_settings, kratos_settings, queso_elements, queso_boundary_conditions)
-    simulation.Initialize()
-    simulation.RunSolutionLoop()
+    simulation.Run()
     CoupledSolidShellModelPart = simulation.model.GetModelPart("CoupledSolidShellModelPart")
+    Solid = CoupledSolidShellModelPart.GetSubModelPart("NurbsMesh")
+    Shell = CoupledSolidShellModelPart.GetSubModelPart("IgaModelPart").GetSubModelPart("StructuralAnalysis_1")
+    Interface = CoupledSolidShellModelPart.GetSubModelPart("CouplingInterface")
+    for node in Solid.Nodes:
+        print(node.GetSolutionStepValue(KM.DISPLACEMENT, 0))
+    
+    print("Shell starting ---------")
+
+    for node in Shell.Nodes:
+        print(node)
+        print(node.GetSolutionStepValue(KM.DISPLACEMENT, 0))
+        
+
     print(CoupledSolidShellModelPart)
    
 if __name__ == "__main__":
