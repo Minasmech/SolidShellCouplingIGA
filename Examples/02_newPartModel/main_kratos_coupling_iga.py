@@ -73,16 +73,14 @@ def main():
     Solid = CoupledSolidShellModelPart.GetSubModelPart("NurbsMesh")
     Shell = CoupledSolidShellModelPart.GetSubModelPart("IgaModelPart").GetSubModelPart("StructuralAnalysis_1")
     Interface = CoupledSolidShellModelPart.GetSubModelPart("CouplingInterface")
-    for node in Solid.Nodes:
-        print(node.GetSolutionStepValue(KM.DISPLACEMENT, 0))
-    
-    print("Shell starting ---------")
-
-    for node in Shell.Nodes:
-        print(node)
-        print(node.GetSolutionStepValue(KM.DISPLACEMENT, 0))
-        
-
+    #for node in Solid.Nodes:
+    #    print(node.GetSolutionStepValue(KM.DISPLACEMENT, 0))
+    #
+    #print("Shell starting ---------")
+    #
+    #for node in Shell.Nodes:
+    #    print(node)
+    #    print(node.GetSolutionStepValue(KM.DISPLACEMENT, 0))
     print(CoupledSolidShellModelPart)
    
 if __name__ == "__main__":
