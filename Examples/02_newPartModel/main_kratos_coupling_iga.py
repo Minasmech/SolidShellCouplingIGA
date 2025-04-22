@@ -34,6 +34,9 @@ class CouplingSolidShellAnalysisStage(CustomAnalysisStage):
             KM.VariableUtils().AddDof(KM.VECTOR_LAGRANGE_MULTIPLIER_Z, IgaApplication.VECTOR_LAGRANGE_MULTIPLIER_REACTION_Z, IgaModelPart)
         
         return super().ModifyInitialGeometry()
+    
+    def _GetOrderOfProcessesInitialization(self):
+        return ["neumann_process_list","additional_processes", "dirichlet_process_list"]
        
 
 def main():

@@ -10,7 +10,7 @@
         "Variables": {
           "DENSITY": 1.0,
           "YOUNG_MODULUS": 200000,
-          "POISSON_RATIO": 0.0
+          "POISSON_RATIO": 0.3
         },
         "Tables": {}
       }
@@ -25,9 +25,9 @@
           "name": "LinearElasticPlaneStress2DLaw"
         },
         "Variables": {
-          "THICKNESS": 1,
+          "THICKNESS": 2,
           "YOUNG_MODULUS": 200000,
-          "POISSON_RATIO": 0,
+          "POISSON_RATIO": 0.3,
           "DENSITY": 1
         },
         "Tables": {}
