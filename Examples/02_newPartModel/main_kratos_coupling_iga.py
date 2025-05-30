@@ -7,7 +7,7 @@ import QuESo_PythonApplication as QuESo_App
 from kratos_interface.model_part_utilities import ModelPartUtilities
 from kratos_interface.custom_analysis_stage import CustomAnalysisStage
 # C:\Users\minas\Documents\Thesis\Examples\02_newPartModels\main_kratos_coupling_iga.py
-from AdditionalModules.GetAndSaveIntpointsFromQuesoConditions import GetIntergrationPointsFromQuesoConditions, SavePointsToVTK
+from AdditionalModules.GetAndSaveIntpointsFromQuesoConditions import GetIntergrationPointsFromQuesoConditions, SavePointsToVTK, GetNormalFromQuesoConditions, SaveVectorsToTXT
 import os
 
 class CouplingSolidShellAnalysisStage(CustomAnalysisStage):
@@ -18,7 +18,7 @@ class CouplingSolidShellAnalysisStage(CustomAnalysisStage):
 
         CoupledSolidShellModelPart = model.CreateModelPart("CoupledSolidShellModelPart")
         CoupledSolidShellModelPart.CreateSubModelPart("CouplingInterface")
-        
+              
         super().__init__(model, queso_settings, kratos_settings_filename, elements, boundary_conditions)
         
     def ModifyInitialGeometry(self):
@@ -58,6 +58,13 @@ def main():
     SavePointsToVTK(IntegrationPoints_Condition1,file_path)
     print("Number of Integration points for Condition1 : ",len(IntegrationPoints_Condition1))
 
+    # TODO -> Conditon_1 are the Neumann BCs generated from QueSo to be used as Coupling connditions later
+    NormalsSolid = GetNormalFromQuesoConditions(Conditon_1)
+    base_directory = 'data'
+    filename = 'Queso_NormalVectors_Interface.txt'
+    file_path = os.path.join(base_directory, filename)
+    SaveVectorsToTXT(NormalsSolid,'Queso_NormalVectors_Interface.txt')
+
     # Write integration points for boundary 2
     Conditon_2 = queso_boundary_conditions[1]
     IntegrationPoints_Condition2 = GetIntergrationPointsFromQuesoConditions(Conditon_2)
@@ -71,6 +78,10 @@ def main():
 
     kratos_settings="KratosParameters.json"
     simulation = CouplingSolidShellAnalysisStage(model,queso_settings, kratos_settings, queso_elements, queso_boundary_conditions)
+    # check
+    ConditionsModel = simulation.model.GetModelPart("NurbsMesh").GetSubModelPart("Neumann_BC").NumberOfConditions
+    
+    
     simulation.Run()
     CoupledSolidShellModelPart = simulation.model.GetModelPart("CoupledSolidShellModelPart")
     Solid = CoupledSolidShellModelPart.GetSubModelPart("NurbsMesh")

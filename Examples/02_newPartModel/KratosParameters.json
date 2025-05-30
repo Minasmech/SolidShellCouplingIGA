@@ -74,7 +74,7 @@
         "Parameters": {
           "model_part_name": "IgaModelPart.Load_3",
           "variable_name": "DEAD_LOAD",
-          "value": [ 0.0, 0, 2.5 ],
+          "value": [ 10.0, 0, 2.0 ],
           "interval": [ 0, "End" ]
         }
       }
@@ -84,7 +84,7 @@
         "kratos_module": "IgaApplication",
         "python_module": "combine_solid_shell_model_parts_process",
         "Parameters": {
-
+          "coupling_method": "CouplingSolidShellPenaltyCondition"
         }
       }
     ],

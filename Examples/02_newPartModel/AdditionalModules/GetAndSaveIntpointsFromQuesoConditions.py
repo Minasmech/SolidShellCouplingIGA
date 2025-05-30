@@ -1,6 +1,20 @@
 import vtk
 import numpy as np
 
+def GetNormalFromQuesoConditions(condition):
+    Normals= []
+    for condition_segment in condition.GetSegments():
+        triangle_mesh_segment = condition_segment.GetTriangleMesh()
+        num_triangles = triangle_mesh_segment.NumOfTriangles()
+        for tri_id in range(num_triangles):
+            integration_method = 0
+            global_points = triangle_mesh_segment.GetIntegrationPointsGlobal(tri_id, integration_method)
+            for point in global_points:
+                normal = point.Normal()
+                Normals.append([normal[0],normal[1],normal[2],point[0],point[1],point[2]],)
+    
+    return Normals
+
 def GetIntergrationPointsFromQuesoConditions(condition):
     IntegrationPoints = []
     condition_settings = condition.GetSettings()
@@ -65,6 +79,12 @@ def write_vtk_file(input_filename, output_filename):
 
     print(f"VTK file written successfully: {output_filename}")
 
+def SaveVectorsToTXT(vectors, filename):
+    with open(filename, 'w') as file:
+        for vector in vectors:
+            # Write each vector and point as a line in the file
+            line = ' '.join(map(str, vector))
+            file.write(line + '\n')
 
 if __name__ == "__main__":
     # Example usage
