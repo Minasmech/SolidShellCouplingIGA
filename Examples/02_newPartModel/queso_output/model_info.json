@@ -17,19 +17,19 @@
 		"num_inactive_elements" : 1232
 	},
 	"elapsed_time_info" : {
-		"total" : 0.2511651,
+		"total" : 0.1484371,
 		"volume_time_info" : {
-			"total" : 0.2083283,
-			"classification_of_elements" : 0.0131366,
-			"computation_of_intersections" : 0.03000581667,
-			"solution_of_moment_fitting_eqs" : 0.16311975,
+			"total" : 0.1297675,
+			"classification_of_elements" : 0.0107265,
+			"computation_of_intersections" : 0.01761503333,
+			"solution_of_moment_fitting_eqs" : 0.1006991667,
 			"construction_of_ggq_rules" : 0
 		},
 		"conditions_time_info" : {
-			"total" : 0.0009689
+			"total" : 0.0007613
 		},
 		"write_files_time_info" : {
-			"total" : 0.0418679
+			"total" : 0.0179083
 		}
 	},
 	"conditions_infos_list" : [

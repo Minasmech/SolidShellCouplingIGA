@@ -95,6 +95,7 @@
         "python_module": "combine_solid_shell_model_parts_process",
         "Parameters": {
           "coupling_method": "CouplingSolidShellPenaltyCondition",
+          "coupled_brep_id": 6,
           "example_name" :  "Cylinder270_0d2"
         }
       }
