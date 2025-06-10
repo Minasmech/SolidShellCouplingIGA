@@ -95,7 +95,7 @@ def main():
     #for node in Shell.Nodes:
     #    print(node)
     #    print(node.GetSolutionStepValue(KM.DISPLACEMENT, 0))
-    print(CoupledSolidShellModelPart)
+    #print(CoupledSolidShellModelPart)
    
 if __name__ == "__main__":
     main()
