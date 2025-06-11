@@ -4,39 +4,39 @@
 		"volume" : 800.0000011
 	},
 	"quadrature_info" : {
-		"represented_volume" : 799.9992603,
-		"percentage_of_geometry_volume" : 99.99990741,
-		"tot_num_points" : 14226,
-		"num_of_points_per_full_element" : 10.61052632,
-		"num_of_points_per_trimmed_element" : 26.99277108
+		"represented_volume" : 800.0000011,
+		"percentage_of_geometry_volume" : 100,
+		"tot_num_points" : 18346,
+		"num_of_points_per_full_element" : 11.17647059,
+		"num_of_points_per_trimmed_element" : 26.94223827
 	},
 	"background_grid_info" : {
-		"num_active_elements" : 700,
-		"num_trimmed_elements" : 415,
-		"num_full_elements" : 285,
-		"num_inactive_elements" : 200
+		"num_active_elements" : 860,
+		"num_trimmed_elements" : 554,
+		"num_full_elements" : 306,
+		"num_inactive_elements" : 390
 	},
 	"elapsed_time_info" : {
-		"total" : 0.2798925,
+		"total" : 0.1343172,
 		"volume_time_info" : {
-			"total" : 0.2290931,
-			"classification_of_elements" : 0.0115205,
-			"computation_of_intersections" : 0.02736215833,
-			"solution_of_moment_fitting_eqs" : 0.17914625,
-			"construction_of_ggq_rules" : 0.0049886
+			"total" : 0.1156516,
+			"classification_of_elements" : 0.0099967,
+			"computation_of_intersections" : 0.01693988333,
+			"solution_of_moment_fitting_eqs" : 0.0857136,
+			"construction_of_ggq_rules" : 0.0017596
 		},
 		"conditions_time_info" : {
-			"total" : 0.0054105
+			"total" : 0.00064
 		},
 		"write_files_time_info" : {
-			"total" : 0.0453889
+			"total" : 0.0180256
 		}
 	},
 	"conditions_infos_list" : [
 		{
 			"condition_id" : 1,
 			"surf_area" : 40.55174978,
-			"perc_surf_area_in_active_domain" : 99.66667353
+			"perc_surf_area_in_active_domain" : 100
 		},
 		{
 			"condition_id" : 2,

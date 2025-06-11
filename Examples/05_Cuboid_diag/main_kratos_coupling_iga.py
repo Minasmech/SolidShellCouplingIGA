@@ -11,13 +11,14 @@ from AdditionalModules.GetAndSaveIntpointsFromQuesoConditions import GetIntergra
 import os
 
 class CouplingSolidShellAnalysisStage(CustomAnalysisStage):
-    def __init__(self, model, queso_settings, kratos_settings_filename, elements, boundary_conditions):
+    def __init__(self, model, queso_settings, kratos_settings_filename, elements, boundary_conditions, HasMultipleCoupledparts = False ):
         IgaModelPart = model.CreateModelPart("IgaModelPart")
         IgaModelPart.AddNodalSolutionStepVariable(KM.DISPLACEMENT)
         IgaModelPart.AddNodalSolutionStepVariable(KM.REACTION)
 
         CoupledSolidShellModelPart = model.CreateModelPart("CoupledSolidShellModelPart")
         CoupledSolidShellModelPart.CreateSubModelPart("CouplingInterface")
+        self.HasMultipleCoupledparts = HasMultipleCoupledparts
               
         super().__init__(model, queso_settings, kratos_settings_filename, elements, boundary_conditions)
         

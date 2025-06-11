@@ -10,7 +10,7 @@
     "lower_bound_uvw": [ -1.0, -1.0, -1.5 ],
     "upper_bound_uvw": [ 23, 21, 2 ],
     "polynomial_order": [ 2, 2,2],
-    "number_of_elements": [ 10, 15, 6]
+    "number_of_elements": [ 10, 25, 5]
   },
     "trimmed_quadrature_rule_settings"     : {
         "moment_fitting_residual": 1e-10
