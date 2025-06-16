@@ -95,8 +95,9 @@
         "python_module": "combine_solid_shell_model_parts_process",
         "Parameters": {
           "coupling_method": "CouplingSolidShellPenaltyCondition",
-          "coupled_brep_id": 5,
-          "example_name": "Cuboid"
+          "coupled_brep_id": [5],
+          "example_name": "Cuboid",
+          "echo_level":0
         }
       }
     ]    

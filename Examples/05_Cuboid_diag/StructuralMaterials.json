@@ -31,7 +31,7 @@
       }
     },
     {
-      "model_part_name": "CoupledSolidShellModelPart.CouplingInterface",
+      "model_part_name": "CoupledSolidShellModelPart.CouplingInterface_1",
       "properties_id": 3,
       "Material": {
         "Variables": {

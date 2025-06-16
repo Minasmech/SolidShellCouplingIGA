@@ -72,7 +72,7 @@
         "kratos_module": "KratosMultiphysics",
         "python_module": "assign_vector_variable_to_conditions_process",
         "Parameters": {
-          "model_part_name": "IgaModelPart.Load_5",
+          "model_part_name": "IgaModelPart.Load_3",
           "variable_name": "DEAD_LOAD",
           "value": [ 0.2, 0.0, 0.1],
           "interval": [ 0, "End" ]
@@ -85,7 +85,7 @@
         "python_module": "output_quadrature_domain_process",
         "Parameters": {
           "output_file_name": "Shell_kratos_shell_integrationdomain.json",
-          "model_part_name": "IgaModelPart.StructuralAnalysis_2",
+          "model_part_name": "IgaModelPart.StructuralAnalysis_1",
           "output_geometry_elements": true,
           "output_geometry_conditions": false
         }
@@ -95,8 +95,9 @@
         "python_module": "combine_solid_shell_model_parts_process",
         "Parameters": {
           "coupling_method": "CouplingSolidShellPenaltyCondition",
-          "coupled_brep_id": 6,
-          "example_name" :  "Cylinder270_0d2"
+          "coupled_brep_id": [3],
+          "example_name" :  "Cylinder270_0d2",
+          "echo_level": 0
         }
       }
     ]
@@ -110,7 +111,7 @@
       "nodal_results": [ "DISPLACEMENT" ],
       "integration_point_results": [ "CAUCHY_STRESS", "PK2_STRESS", "INTERNAL_MOMENT" ],
       "output_file_name": "Shell_kratos_shell.post.res",
-      "model_part_name": "IgaModelPart.StructuralAnalysis_2",
+      "model_part_name": "IgaModelPart.StructuralAnalysis_1",
       "file_label": "step",
       "output_control_type": "time",
       "output_frequency": 0.1
