@@ -1,0 +1,47 @@
+{
+	"embedded_geometry_info" : {
+		"is_closed" : true,
+		"volume" : 800
+	},
+	"quadrature_info" : {
+		"represented_volume" : 800,
+		"percentage_of_geometry_volume" : 100,
+		"tot_num_points" : 2641,
+		"num_of_points_per_full_element" : 0,
+		"num_of_points_per_trimmed_element" : 26.94897959
+	},
+	"background_grid_info" : {
+		"num_active_elements" : 98,
+		"num_trimmed_elements" : 98,
+		"num_full_elements" : 0,
+		"num_inactive_elements" : 1112
+	},
+	"elapsed_time_info" : {
+		"total" : 0.1003536,
+		"volume_time_info" : {
+			"total" : 0.0805205,
+			"classification_of_elements" : 0.0102699,
+			"computation_of_intersections" : 0.01218790833,
+			"solution_of_moment_fitting_eqs" : 0.0546243,
+			"construction_of_ggq_rules" : 0
+		},
+		"conditions_time_info" : {
+			"total" : 0.0009764
+		},
+		"write_files_time_info" : {
+			"total" : 0.0188567
+		}
+	},
+	"conditions_infos_list" : [
+		{
+			"condition_id" : 1,
+			"surf_area" : 40,
+			"perc_surf_area_in_active_domain" : 100
+		},
+		{
+			"condition_id" : 2,
+			"surf_area" : 40,
+			"perc_surf_area_in_active_domain" : 100
+		}
+	]
+}
