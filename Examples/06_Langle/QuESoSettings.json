@@ -1,0 +1,39 @@
+{
+    "general_settings"   : {
+        "input_filename"  : "data/L_angle_body.stl",
+        "echo_level"      : 1
+    },
+  "background_grid_settings": {
+    "grid_type": "b_spline_grid",
+    "lower_bound_xyz": [ -1, 8, -1 ],
+    "upper_bound_xyz": [ 1, 11, 1 ],
+    "lower_bound_uvw": [ -1, 8, -1 ],
+    "upper_bound_uvw": [ 1, 11, 1   ],
+    "polynomial_order": [ 2, 2, 2],
+    "number_of_elements": [ 41, 61 , 41]
+  },
+    "trimmed_quadrature_rule_settings"     : {
+        "moment_fitting_residual": 1e-10
+    },
+    "non_trimmed_quadrature_rule_settings" : {
+        "integration_method" : "Gauss"
+    },
+"conditions_settings_list"    :  [
+        {
+            "condition_id" : 1,
+            "condition_type" : "SurfaceLoadCondition",
+            "input_filename" : "data/L_angle_Vertical.stl",
+            "modulus": 0.1,
+            "direction" : [10, 0, 0]
+        },
+        {
+            "condition_id" : 2,
+            "condition_type" : "SurfaceLoadCondition",
+            "input_filename" : "data/L_angle_Horizotal.stl",
+            "modulus": 0.1,
+            "direction" : [10, 0, 0]
+        }
+    ]
+}
+
+
