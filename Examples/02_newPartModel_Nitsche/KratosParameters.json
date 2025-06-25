@@ -74,7 +74,7 @@
         "Parameters": {
           "model_part_name": "IgaModelPart.Load_3",
           "variable_name": "DEAD_LOAD",
-          "value": [ 10.0, 0, 2.0 ],
+          "value": [ 20.0, 0, 4.0 ],
           "interval": [ 0, "End" ]
         }
       }
