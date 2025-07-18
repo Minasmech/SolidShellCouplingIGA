@@ -9,7 +9,7 @@
         "solver_type": "Static",
         "analysis_type": "linear",
         "model_part_name": "NurbsMesh",
-        "echo_level": 3,
+        "echo_level": 1,
         "domain_size": 3,
         "model_import_settings": {
             "input_type": "use_input_model_part"

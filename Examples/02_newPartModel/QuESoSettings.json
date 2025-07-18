@@ -1,6 +1,6 @@
 {
     "general_settings"   : {
-        "input_filename"  : "data/Cuboid_20_20_2.stl",
+        "input_filename"  : "data/Cuboid_20_20_2_sliced.stl",
         "echo_level"      : 1
     },
   "background_grid_settings": {

@@ -3,15 +3,15 @@
         "input_filename"  : "data/Cuboid_20_20_2.stl",
         "echo_level"      : 1
     },
-    "background_grid_settings"     : {
-        "grid_type" : "b_spline_grid",
-        "lower_bound_xyz": [-1, -6, -6],
-        "upper_bound_xyz": [30, 30, 10],
-        "lower_bound_uvw": [-1, -6, -6],
-        "upper_bound_uvw": [30, 30, 10],
-        "polynomial_order" : [2, 2, 2],
-        "number_of_elements" : [10,11,11]
-    },
+  "background_grid_settings": {
+    "grid_type": "b_spline_grid",
+    "lower_bound_xyz": [ -3.0, -3.0, -3 ],
+    "upper_bound_xyz": [ 23, 23, 3 ],
+    "lower_bound_uvw": [ -3.0, -3.0, -3 ],
+    "upper_bound_uvw": [ 23, 23, 3 ],
+    "polynomial_order": [ 2, 2, 2],
+    "number_of_elements": [ 20, 20, 5]
+  },
     "trimmed_quadrature_rule_settings"     : {
         "moment_fitting_residual": 1e-8
     },
@@ -23,8 +23,8 @@
             "condition_id" : 1,
             "condition_type" : "SurfaceLoadCondition",
             "input_filename" : "data/Coupled_face.stl",
-            "modulus": 10,
-            "direction" : [1, 0, 0]
+            "modulus": 0.1,
+            "direction" : [10, 0, 0]
         },
         {
             "condition_id" : 2,
