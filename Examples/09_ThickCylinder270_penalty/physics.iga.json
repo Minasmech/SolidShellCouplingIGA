@@ -11,7 +11,7 @@
       }
     },
     {
-      "brep_ids": [ 5 ],
+      "brep_ids": [ 4 ],
       "geometry_type": "SurfaceEdge",
       "iga_model_part": "Load_3",
       "parameters": {
