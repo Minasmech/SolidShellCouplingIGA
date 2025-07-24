@@ -5,8 +5,8 @@
       "geometry_type": "NurbsSurface",
       "model_part_name": "IgaModelPart",
       "parameters": {
-        "insert_nb_per_span_u": 50,
-        "insert_nb_per_span_v": 50,
+        "insert_nb_per_span_u": 28,
+        "insert_nb_per_span_v": 20,
         "increase_degree_u": 2,
         "increase_degree_v": 2
       }

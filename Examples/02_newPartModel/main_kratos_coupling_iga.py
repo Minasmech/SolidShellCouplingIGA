@@ -5,8 +5,6 @@ import KratosMultiphysics as KM
 import KratosMultiphysics.IgaApplication as IgaApplication
 import QuESo_PythonApplication as QuESo_App
 from kratos_interface.model_part_utilities import ModelPartUtilities
-from AdditionalModules.GetAndSaveIntpointsFromQuesoConditions import GetIntergrationPointsFromQuesoConditions, SavePointsToVTK, GetNormalFromQuesoConditions, SaveVectorsToTXT
-import sys
 
 class CouplingSolidShellAnalysisStage(StructuralMechanicsAnalysis):
     def __init__(self, model, queso_settings, kratos_settings_filename, elements, boundary_conditions):

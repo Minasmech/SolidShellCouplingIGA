@@ -31,6 +31,15 @@
         "name": "LoadCondition",
         "shape_function_derivatives_order": 2
       }
+    },{
+      "brep_ids": [ 7,8,9,10 ],
+      "geometry_type": "SurfacePoint",
+      "iga_model_part": "Output_Points",
+      "parameters": {
+        "type": "condition",
+        "name": "OutputCondition",
+        "shape_function_derivatives_order": 2
+      }
     }
   ]
 }
