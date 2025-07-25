@@ -684,7 +684,41 @@
                     ]
                 }
             ],
-            "vertices": []
+            "vertices": [{
+          "brep_id": 49,
+          "topology": [
+            {
+              "brep_id": 2,
+              "local_coordinates": [0, 0, 0]
+            }
+            ]
+            },{
+            "brep_id": 50,
+            "topology": [
+                {
+                "brep_id": 2,
+                "local_coordinates": [0, 21.205750411731103, 0]
+                }
+            ]
+            },
+            {
+            "brep_id": 51,
+            "topology": [
+                {
+                "brep_id": 2,
+                "local_coordinates": [15, 0, 0]
+                }
+            ]
+            },
+            {
+            "brep_id": 52,
+            "topology": [
+                {
+                "brep_id": 2,
+                "local_coordinates": [15, 21.205750411731103, 0]
+                }
+            ]
+        }]
         }
     ]
 }

@@ -143,11 +143,15 @@ def main():
     
     kratos_settings="KratosParameters.json"
     simulation = CouplingSolidShellAnalysisStage(model,queso_settings, kratos_settings, queso_elements, queso_boundary_conditions)
-    simulation.Run()
-    
-    model_part = model.GetModelPart("IgaModelPart")
-    print(model_part)
-
+    simulation.Initialize()
+    #Surf = simulation.model.GetModelPart("IgaModelPart").GetGeometry(2)
+    #print("Show Global Coordinates of post process points")
+    #print(Surf.GlobalCoordinates([0, 0, 0]))
+    #print(Surf.GlobalCoordinates([0, 21.205750411731103, 0]))
+    #print(Surf.GlobalCoordinates([15,0, 0]))
+    #print(Surf.GlobalCoordinates([15, 21.205750411731103, 0]))
+    simulation.RunSolutionLoop()
+    simulation.Finalize()
    
 if __name__ == "__main__":
     main()

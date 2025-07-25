@@ -8,4 +8,13 @@ if __name__ == "__main__":
 
     model = KratosMultiphysics.Model()
     simulation = StructuralMechanicsAnalysis(model, parameters)
-    simulation.Run()
+
+    simulation.Initialize()
+    #Surf = simulation.model.GetModelPart("IgaModelPart").GetGeometry(2)
+    #print("Show Global Coordinates of post process points")
+    #print(Surf.GlobalCoordinates([0, 15, 0]))
+    #print(Surf.GlobalCoordinates([21.205750411731103, 15, 0]))
+    #print(Surf.GlobalCoordinates([0, 30, 0]))
+    #print(Surf.GlobalCoordinates([21.205750411731103, 30, 0]))
+    simulation.RunSolutionLoop()
+    simulation.Finalize()

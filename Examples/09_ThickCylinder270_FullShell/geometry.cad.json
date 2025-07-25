@@ -730,7 +730,41 @@
                     "embedded_edges": []
                 }
             ],
-            "vertices": []
+            "vertices": [{
+                "brep_id": 51,
+                "topology": [
+                    {
+                    "brep_id": 2,
+                    "local_coordinates": [0, 15, 0]
+                    }
+                ]
+                },{
+                "brep_id": 52,
+                "topology": [
+                    {
+                    "brep_id": 2,
+                    "local_coordinates": [21.205750411731103, 15, 0]
+                    }
+                ]
+                },
+                {
+                "brep_id": 53,
+                "topology": [
+                    {
+                    "brep_id": 2,
+                    "local_coordinates": [0, 30, 0]
+                    }
+                ]
+                },
+                {
+                "brep_id": 54,
+                "topology": [
+                    {
+                    "brep_id": 2,
+                    "local_coordinates": [21.205750411731103, 30, 0]
+                    }
+                ]
+            }]
         }
     ]
 }

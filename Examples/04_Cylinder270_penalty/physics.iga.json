@@ -11,12 +11,22 @@
       }
     },
     {
-      "brep_ids": [ 5 ],
+      "brep_ids": [ 4 ],
       "geometry_type": "SurfaceEdge",
       "iga_model_part": "Load_3",
       "parameters": {
         "type": "condition",
         "name": "LoadCondition",
+        "shape_function_derivatives_order": 2
+      }
+    },
+    {
+      "brep_ids": [ 49,50,51, 52 ],
+      "geometry_type": "SurfacePoint",
+      "iga_model_part": "Output_Points",
+      "parameters": {
+        "type": "condition",
+        "name": "OutputCondition",
         "shape_function_derivatives_order": 2
       }
     }
