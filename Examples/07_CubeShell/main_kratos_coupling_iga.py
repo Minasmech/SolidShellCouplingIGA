@@ -5,8 +5,6 @@ import KratosMultiphysics as KM
 import KratosMultiphysics.IgaApplication as IgaApplication
 import QuESo_PythonApplication as QuESo_App
 from kratos_interface.model_part_utilities import ModelPartUtilities
-from AdditionalModules.GetAndSaveIntpointsFromQuesoConditions import GetIntergrationPointsFromQuesoConditions, SavePointsToVTK, GetNormalFromQuesoConditions, SaveVectorsToTXT
-import sys
 
 class CouplingSolidShellAnalysisStage(StructuralMechanicsAnalysis):
     def __init__(self, model, queso_settings, kratos_settings_filename, elements, boundary_conditions):
@@ -82,13 +80,6 @@ class CouplingSolidShellAnalysisStage(StructuralMechanicsAnalysis):
         self.triangle_mesh = QuESo_App.TriangleMesh()
         QuESo_App.IO.ReadMeshFromSTL(self.triangle_mesh, filename)
         ModelPartUtilities.ReadModelPartFromTriangleMesh(embedded_model_part, self.triangle_mesh)
-        # Convert the geometry model or import analysis suitable models.
-        # for modeler in self._GetListOfModelers():
-        #     if self.echo_level > 1:
-        #         KM.Logger.PrintInfo(self._GetSimulationName(), "Modeler: ", str(modeler), " Setup ModelPart started.")
-        #     modeler.SetupModelPart()
-        #     if self.echo_level > 1:
-        #         KM.Logger.PrintInfo(self._GetSimulationName(), "Modeler: ", str(modeler), " Setup ModelPart finished.")
         return super()._ModelersSetupModelPart()
         
     def ModifyInitialGeometry(self):
@@ -140,44 +131,24 @@ def main():
     
     #Create custom analysis
     model = KM.Model()
-    print("stop_2")
     
     queso_settings = pyqueso.GetSettings()
     queso_elements = pyqueso.GetElements()
     queso_boundary_conditions = pyqueso.GetConditions()
-    
-    # Write integration points for boundary 1
-    # Conditon_1 = queso_boundary_conditions[0]
-    # IntegrationPoints_Condition1 = GetIntergrationPointsFromQuesoConditions(Conditon_1)
-    # base_directory = 'data'
-    # filename = 'Queso_IntPoints_Cond1.vtk'
-    # file_path = os.path.join(base_directory, filename)
-    # SavePointsToVTK(IntegrationPoints_Condition1,file_path)
-    # print("Number of Integration points for Condition1 : ",len(IntegrationPoints_Condition1))
-
-    # Write Normal Vectors for each IG of condition to txt
-    #NormalsSolid = GetNormalFromQuesoConditions(Conditon_1)
-    #base_directory = 'data'
-    #filename = 'Queso_NormalVectors_Interface.txt'
-    #file_path = os.path.join(base_directory, filename)
-    #SaveVectorsToTXT(NormalsSolid,'Queso_NormalVectors_Interface.txt')
-
-    # Write integration points for boundary 2
-    # Conditon_2 = queso_boundary_conditions[1]
-    # IntegrationPoints_Condition2 = GetIntergrationPointsFromQuesoConditions(Conditon_2)
-    # base_directory = 'data'
-    # filename = 'Queso_IntPoints_Cond2.vtk'
-    # file_path = os.path.join(base_directory, filename)
-    # SavePointsToVTK(IntegrationPoints_Condition2,file_path)
-    # print("Number of Integration points for Condition2 : ",len(IntegrationPoints_Condition2))
-
 
     kratos_settings="KratosParameters.json"
     simulation = CouplingSolidShellAnalysisStage(model,queso_settings, kratos_settings, queso_elements, queso_boundary_conditions)
-    simulation.Run()
-    
-    model_part = model.GetModelPart("IgaModelPart")
-    print(model_part)
+    simulation.Initialize()
+    print("Show Global Coordinates of post process points")
+    Surf = simulation.model.GetModelPart("IgaModelPart").GetGeometry(2)
+    print(Surf.GlobalCoordinates([0 , 0 , 0]))
+    print(Surf.GlobalCoordinates([0 , 3 , 0]))
+    print(Surf.GlobalCoordinates([0 , 6 , 0]))
+    print(Surf.GlobalCoordinates([8 , 0 , 0]))
+    print(Surf.GlobalCoordinates([8 , 3 ,0 ]))
+    print(Surf.GlobalCoordinates([8 , 6 ,0 ]))
+    simulation.RunSolutionLoop()
+    simulation.Finalize()
 
    
 if __name__ == "__main__":

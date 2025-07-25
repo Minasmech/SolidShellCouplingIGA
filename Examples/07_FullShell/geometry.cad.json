@@ -947,7 +947,58 @@
                     ]
                 }
             ],
-            "vertices": []
+            "vertices": [{
+                "brep_id": 49,
+                "topology": [
+                    {
+                    "brep_id": 3,
+                    "local_coordinates": [0 , 0 , 0]
+                    }
+                ]
+                },{
+                "brep_id": 50,
+                "topology": [
+                    {
+                    "brep_id": 3,
+                    "local_coordinates": [0 , 3 , 0]
+                    }
+                ]
+                },
+                {
+                "brep_id": 51,
+                "topology": [
+                    {
+                    "brep_id": 3,
+                    "local_coordinates": [0 , 6 , 0]
+                    }
+                ]
+                },
+                {
+                "brep_id": 52,
+                "topology": [
+                    {
+                    "brep_id": 3,
+                    "local_coordinates": [8 , 0 ,0 ]
+                    }
+                ]
+            },{
+                "brep_id": 53,
+                "topology": [
+                    {
+                    "brep_id": 3,
+                    "local_coordinates": [8 , 3 , 0]
+                    }
+                ]
+                },
+                {
+                "brep_id": 54,
+                "topology": [
+                    {
+                    "brep_id": 3,
+                    "local_coordinates": [8 , 6 ,0 ]
+                    }
+                ]
+            }]
         }
     ]
 }
