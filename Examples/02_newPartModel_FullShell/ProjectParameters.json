@@ -119,7 +119,7 @@
         "Parameters": {
           "model_part_name": "IgaModelPart.Load_3",
           "variable_name": "DEAD_LOAD",
-          "value": [ 2.0, 0, 4.0 ],
+          "value": [ 20.0, 0, 4.0 ],
           "interval": [ 0, "End" ]
         }
       }
@@ -147,6 +147,19 @@
           "integration_point_results": ["DISPLACEMENT","PK2_STRESS","CAUCHY_STRESS"],
           "output_file_name": "PostProcess.txt",
           "model_part_name": "IgaModelPart.Output_Points",
+          "file_label": "step",
+          "output_control_type": "time",
+          "output_frequency": 0.0
+        }
+      },
+      {
+        "kratos_module": "IgaApplication",
+        "python_module": "iga_output_process",
+        "Parameters": {
+         "nodal_results": [  ],
+          "integration_point_results": ["DISPLACEMENT","PK2_STRESS","CAUCHY_STRESS"],
+          "output_file_name": "PostProcess_05.txt",
+          "model_part_name": "IgaModelPart.Output_Points_05",
           "file_label": "step",
           "output_control_type": "time",
           "output_frequency": 0.0
