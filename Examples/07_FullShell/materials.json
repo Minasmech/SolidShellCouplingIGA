@@ -39,7 +39,7 @@
             "properties_id": 5,
             "Material": {
                 "Variables": {
-                    "PENALTY_FACTOR": 1E10
+                    "PENALTY_FACTOR": 1E6
                 },
                 "Tables": {}
             }
