@@ -29,6 +29,16 @@
         "name": "OutputCondition",
         "shape_function_derivatives_order": 2
       }
+    },
+    {
+      "brep_ids": [ 49,55,56,57,52 ],
+      "geometry_type": "SurfacePoint",
+      "iga_model_part": "Output_Points_Beam",
+      "parameters": {
+        "type": "condition",
+        "name": "OutputCondition",
+        "shape_function_derivatives_order": 2
+      }
     }
   ]
 }

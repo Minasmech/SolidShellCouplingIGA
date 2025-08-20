@@ -146,12 +146,15 @@ def main():
     print(Surf.GlobalCoordinates([9,0,0]))
     print(Surf.GlobalCoordinates([9,1,0]))
     Surf = simulation.model.GetModelPart("IgaModelPart").GetGeometry(3)
-    print(Surf.GlobalCoordinates([1 , 0 , 0]))
     print(Surf.GlobalCoordinates([0 , 0 , 0]))
-    print(Surf.GlobalCoordinates([1,4,0]))
-    print(Surf.GlobalCoordinates([0,4,0]))
+    print(Surf.GlobalCoordinates([0 , 1 , 0]))
+    print(Surf.GlobalCoordinates([0 , 2 , 0]))
+    print(Surf.GlobalCoordinates([0 , 3 , 0]))
+    print(Surf.GlobalCoordinates([0 , 4 , 0]))
+    
     simulation.RunSolutionLoop()
     simulation.Finalize()
+    
 
    
 if __name__ == "__main__":

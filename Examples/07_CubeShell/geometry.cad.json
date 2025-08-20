@@ -280,7 +280,35 @@
                     "local_coordinates": [8 , 6 ,0 ]
                     }
                 ]
-            }]
+                },
+                {
+                "brep_id": 55,
+                "topology": [
+                    {
+                    "brep_id": 2,
+                    "local_coordinates": [2 , 0,0 ]
+                    }
+                ]
+                },
+                {
+                "brep_id": 56,
+                "topology": [
+                    {
+                    "brep_id": 2,
+                    "local_coordinates": [4,0,0 ]
+                    }
+                ]
+                },
+                {
+                "brep_id": 57,
+                "topology": [
+                    {
+                    "brep_id": 2,
+                    "local_coordinates": [6 ,0,0 ]
+                    }
+                ]
+                }
+        ]
     }
   ]
 }
