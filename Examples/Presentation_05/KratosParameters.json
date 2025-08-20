@@ -1,0 +1,186 @@
+{
+  "problem_data": {
+    "problem_name": "Example_01_Coupling_SolidShell_Kratos",
+    "parallel_type": "OpenMP",
+    "echo_level": 1,
+    "start_time": 0.0,
+    "end_time": 1.0
+  },
+  "solver_settings": {
+    "solver_type": "Static",
+    "analysis_type": "linear",
+    "model_part_name": "CoupledSolidShellModelPart",
+    "echo_level": 1,
+    "domain_size": 3,
+    "model_import_settings": {
+      "input_type": "use_input_model_part"
+    },
+    "material_import_settings": {
+      "materials_filename": "StructuralMaterials.json"
+    },
+    "time_stepping": {
+      "time_step": 1.1
+    },
+    "linear_solver_settings": {
+      "solver_type": "sparse_lu"
+    },
+    "rotation_dofs": false,
+    "builder_and_solver_settings": {
+      "use_block_builder": true
+    },
+    "residual_relative_tolerance": 0.000001
+  },
+  "modelers": [
+
+    {
+      "modeler_name": "CadIoModeler",
+      "Parameters": {
+        "echo_level": 0,
+        "cad_model_part_name": "IgaModelPart",
+        "geometry_file_name": "geometry.cad.json",
+        "output_geometry_file_name": "Shell_kratos_0.georhino.json"
+      }
+    },
+    {
+      "modeler_name": "RefinementModeler",
+      "Parameters": {
+        "echo_level": 0,
+        "physics_file_name": "refinements.iga.json"
+      }
+    },
+    {
+      "modeler_name": "IgaModeler",
+      "Parameters": {
+        "echo_level": 0,
+        "cad_model_part_name": "IgaModelPart",
+        "analysis_model_part_name": "IgaModelPart",
+        "physics_file_name": "physics.iga.json"
+      }
+    },
+    {
+      "modeler_name": "NurbsGeometryModeler",
+      "Parameters": {
+        "model_part_name": "NurbsMesh",
+        "geometry_name": "NurbsVolume"
+      }
+    }
+
+  ],
+  "processes": {
+    "neumann_process_list": [
+      {
+        "kratos_module": "KratosMultiphysics",
+        "python_module": "assign_vector_variable_to_conditions_process",
+        "Parameters": {
+          "model_part_name": "IgaModelPart.Load_2",
+          "variable_name": "DEAD_LOAD",
+          "value": [ 5.0, 0.0, 1.0 ],
+          "interval": [ 0, "End" ]
+        }
+      }
+    ],
+    "additional_processes": [
+      {
+        "kratos_module": "IgaApplication",
+        "python_module": "output_quadrature_domain_process",
+        "Parameters": {
+          "output_file_name": "Shell_kratos_shell_integrationdomain.json",
+          "model_part_name": "IgaModelPart.StructuralAnalysis_1",
+          "output_geometry_elements": true,
+          "output_geometry_conditions": false
+        }
+      },
+      {
+        "kratos_module": "IgaApplication",
+        "python_module": "combine_solid_shell_model_parts_process",
+        "Parameters": {
+          "coupling_method": "NitscheCondition",
+          "coupled_brep_id": [6],
+          "example_name": "Cuboid",
+          "echo_level": 0
+        }
+      }
+    ]    
+  },
+  "output_processes": {
+    "output_process_list": [
+  {
+    "kratos_module": "IgaApplication",
+    "python_module": "iga_output_process",
+    "Parameters": {
+      "nodal_results": [ "DISPLACEMENT" ],
+      "integration_point_results": [ "CAUCHY_STRESS", "PK2_STRESS" ],
+      "output_file_name": "Shell_kratos_shell.post.res",
+      "model_part_name": "IgaModelPart.StructuralAnalysis_1",
+      "file_label": "step",
+      "output_control_type": "time",
+      "output_frequency": 0.1
+    }
+  },
+  {
+        "kratos_module": "IgaApplication",
+        "python_module": "iga_output_process",
+        "Parameters": {
+         "nodal_results": [  ],
+          "integration_point_results": ["DISPLACEMENT","PK2_STRESS","CAUCHY_STRESS"],
+          "output_file_name": "PostProcess.txt",
+          "model_part_name": "IgaModelPart.Output_Points",
+          "file_label": "step",
+          "output_control_type": "time",
+          "output_frequency": 0.0
+        }
+    },
+  {
+        "kratos_module": "IgaApplication",
+        "python_module": "iga_output_process",
+        "Parameters": {
+         "nodal_results": [  ],
+          "integration_point_results": ["DISPLACEMENT","PK2_STRESS","CAUCHY_STRESS"],
+          "output_file_name": "PostProcess_Beam.txt",
+          "model_part_name": "IgaModelPart.Output_Points_Beam",
+          "file_label": "step",
+          "output_control_type": "time",
+          "output_frequency": 0.0
+        }
+    }],   
+    "vtk_output": [
+      {
+        "python_module": "vtk_embedded_geometry_output_process",
+        "kratos_module": "KratosMultiphysics.IgaApplication",
+        "process_name": "VtkEmbeddedGeometryOutputProcess",
+        "help": "This process writes postprocessing files for Paraview",
+        "Parameters": {
+          "mapping_parameters": {
+            "main_model_part_name": "NurbsMesh",
+            "nurbs_volume_name": "NurbsVolume",
+            "embedded_model_part_name": "EmbeddedModelPart"
+          },
+          "vtk_parameters": {
+            "model_part_name": "EmbeddedModelPart",
+            "output_control_type": "step",
+            "output_interval": 1,
+            "file_format": "ascii",
+            "output_precision": 7,
+            "output_sub_model_parts": false,
+            "output_path": "kratos_output",
+            "save_output_files_in_folder": true,
+            "nodal_solution_step_data_variables": [
+              "DISPLACEMENT"
+            ],
+            "nodal_data_value_variables": [
+              "CAUCHY_STRESS_VECTOR",
+              "VON_MISES_STRESS"
+            ],
+            "nodal_flags": [],
+            "element_data_value_variables": [],
+            "element_flags": [],
+            "condition_data_value_variables": [],
+            "condition_flags": [],
+            "gauss_point_variables_extrapolated_to_nodes": []
+          }
+        }
+      }
+    ]
+  }
+  
+}

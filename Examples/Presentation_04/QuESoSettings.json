@@ -1,0 +1,38 @@
+{
+    "general_settings"   : {
+        "input_filename"  : "data/cylinder_body_0d2.stl",
+        "echo_level"      : 1
+    },
+  "background_grid_settings": {
+    "grid_type": "b_spline_grid",
+    "lower_bound_xyz": [ -0.5, -5, -5 ],
+    "upper_bound_xyz": [ 15.5, 5,5 ],
+    "lower_bound_uvw": [ -0.5, -5, -5  ],
+    "upper_bound_uvw": [ 15.5, 5, 5 ],
+    "polynomial_order": [ 3,3,3 ],
+    "number_of_elements": [6,9 , 9]
+  },
+    "trimmed_quadrature_rule_settings"     : {
+        "moment_fitting_residual": 1e-8
+    },
+    "non_trimmed_quadrature_rule_settings" : {
+        "integration_method" : "Gauss"
+    },
+"conditions_settings_list"    :  [
+        {
+            "condition_id" : 1,
+            "condition_type" : "SurfaceLoadCondition",
+            "input_filename" : "data/cylinder_coupled_face_0D2.stl",
+            "modulus": 1,
+            "direction" : [2, 0, 0]
+        },
+        {
+            "condition_id" : 2,
+            "condition_type" : "PenaltySupportCondition",
+            "input_filename" : "data/cylinder_fixed_face_0D2.stl",
+            "value" : [0.0, 0.0, 0.0],
+            "penalty_factor" : 1e10
+        }
+    ]
+}
+
